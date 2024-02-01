@@ -33,6 +33,7 @@ export class RegisterUseCase {
       email,
       password_hash,
     });
+
     return { user };
   }
 }
