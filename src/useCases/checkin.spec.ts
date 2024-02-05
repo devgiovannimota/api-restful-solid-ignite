@@ -3,6 +3,8 @@ import { inMemoryCheckInsRepository } from "@/repositories/in-memory/in-memory-c
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { InMemoryGymRepository } from "@/repositories/in-memory/in-memory-gym-repository";
 import { Decimal } from "@prisma/client/runtime/library";
+import { MaxNumberOfCheckInError } from "./errors/max-numbers-of-check-ins-error";
+import { MaxDistanceError } from "./errors/max-distance-error";
 
 let checkInRepository: inMemoryCheckInsRepository;
 let gymsRepository: InMemoryGymRepository;
@@ -55,7 +57,7 @@ describe("Check-in use case", () => {
         userLatitude: -27.0747279,
         userLongitude: -49.6401091,
       })
-    ).rejects.toBeInstanceOf(Error);
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInError);
   });
 
   it("should be not to check in twice but in diferent days", async () => {
@@ -95,6 +97,6 @@ describe("Check-in use case", () => {
         userLatitude: -27.2092052,
         userLongitude: -49.6401091,
       })
-    ).rejects.toBeInstanceOf(Error);
+    ).rejects.toBeInstanceOf(MaxDistanceError);
   });
 });
