@@ -4,7 +4,7 @@ import request from "supertest";
 import { createAndAuthenticateUser } from "@/utils/create-and-authenticate-user";
 import { prisma } from "@/lib/prisma";
 
-describe("Create (e2e)", () => {
+describe("History (e2e)", () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -12,7 +12,7 @@ describe("Create (e2e)", () => {
     await app.close();
   });
 
-  it("Should be able to create a check-in", async () => {
+  it("Should be able to get user history check-ins", async () => {
     const { token } = await createAndAuthenticateUser(app);
 
     const gym = await prisma.gym.create({
@@ -26,7 +26,7 @@ describe("Create (e2e)", () => {
     });
     const gymId = gym.id;
 
-    const response = await request(app.server)
+    await request(app.server)
       .post(`/gyms/${gymId}/check-ins`)
       .send({
         latitude: -22.739967,
@@ -34,6 +34,20 @@ describe("Create (e2e)", () => {
       })
       .set("Authorization", `Bearer ${token}`);
 
-    expect(response.statusCode).toEqual(201);
+    const response = await request(app.server)
+      .get("/check-ins/history")
+      .query({
+        page: 1,
+      })
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.checkIns).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          gym_id: gymId,
+        }),
+      ])
+    );
   });
 });

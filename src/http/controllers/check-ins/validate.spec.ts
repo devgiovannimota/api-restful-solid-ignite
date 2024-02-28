@@ -3,8 +3,9 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import request from "supertest";
 import { createAndAuthenticateUser } from "@/utils/create-and-authenticate-user";
 import { prisma } from "@/lib/prisma";
+import { string } from "zod";
 
-describe("Create (e2e)", () => {
+describe("History (e2e)", () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -12,7 +13,7 @@ describe("Create (e2e)", () => {
     await app.close();
   });
 
-  it("Should be able to create a check-in", async () => {
+  it("Should be able to validade user check-in", async () => {
     const { token } = await createAndAuthenticateUser(app);
 
     const gym = await prisma.gym.create({
@@ -26,7 +27,7 @@ describe("Create (e2e)", () => {
     });
     const gymId = gym.id;
 
-    const response = await request(app.server)
+    await request(app.server)
       .post(`/gyms/${gymId}/check-ins`)
       .send({
         latitude: -22.739967,
@@ -34,6 +35,20 @@ describe("Create (e2e)", () => {
       })
       .set("Authorization", `Bearer ${token}`);
 
-    expect(response.statusCode).toEqual(201);
+    const responseHistory = await request(app.server)
+      .get("/check-ins/history")
+      .query({
+        page: 1,
+      })
+      .set("Authorization", `Bearer ${token}`);
+
+    const checkInId = responseHistory.body.checkIns[0];
+
+    const response = await request(app.server)
+      .patch(`/check-ins/${checkInId.id}/validate`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(response.statusCode).toBe(201);
+    expect(response.body.created_at).toBeDefined();
+    expect(Date.parse(response.body.created_at));
   });
 });

@@ -27,7 +27,6 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     userLatitude: latitude,
     userLongitude: longitude,
   });
-  console.log(checkIn);
 
   return reply.status(201).send();
 }
