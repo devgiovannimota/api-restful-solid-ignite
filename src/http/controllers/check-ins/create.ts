@@ -21,8 +21,6 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
 
   const checkInUseCase = makeCheckInUseCase();
 
-  console.log(gymId);
-  console.log(request.user.sub);
   await checkInUseCase.execute({
     gymId,
     userId: request.user.sub,
