@@ -1,6 +1,7 @@
 import { app } from "@/app";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import request from "supertest";
+import { createAndAuthenticateUser } from "@/utils/create-and-authenticate-user";
 
 describe("Create (e2e)", () => {
   beforeAll(async () => {
@@ -11,18 +12,7 @@ describe("Create (e2e)", () => {
   });
 
   it("Should be able to create a gym", async () => {
-    await request(app.server).post("/users").send({
-      name: "Giovanni",
-      email: "giovaniname@hotmail.com",
-      password: "123123",
-    });
-
-    const authResponse = await request(app.server).post("/authenticate").send({
-      email: "giovaniname@hotmail.com",
-      password: "123123",
-    });
-
-    const { token } = authResponse.body;
+    const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
       .post("/gyms")

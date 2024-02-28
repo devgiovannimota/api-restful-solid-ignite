@@ -1,6 +1,7 @@
 import { app } from "@/app";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import request from "supertest";
+import { createAndAuthenticateUser } from "@/utils/create-and-authenticate-user";
 
 describe("Nearby E2E", () => {
   beforeAll(async () => {
@@ -11,17 +12,7 @@ describe("Nearby E2E", () => {
   });
 
   it("Should be able to search nearby gyms", async () => {
-    await request(app.server).post("/users").send({
-      name: "Giovanni",
-      email: "giovaniname@hotmail.com",
-      password: "123123",
-    });
-
-    const authResponse = await request(app.server).post("/authenticate").send({
-      email: "giovaniname@hotmail.com",
-      password: "123123",
-    });
-    const { token } = authResponse.body;
+    const { token } = await createAndAuthenticateUser(app);
 
     await request(app.server)
       .post("/gyms")

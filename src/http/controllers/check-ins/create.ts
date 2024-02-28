@@ -21,12 +21,13 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
 
   const checkInUseCase = makeCheckInUseCase();
 
-  await checkInUseCase.execute({
+  const checkIn = await checkInUseCase.execute({
     gymId,
     userId: request.user.sub,
     userLatitude: latitude,
     userLongitude: longitude,
   });
+  console.log(checkIn);
 
   return reply.status(201).send();
 }
