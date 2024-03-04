@@ -172,8 +172,8 @@ export default defineConfig({
 "scripts": {
   "test:create-prisma-environment": "npm link ./prisma/vitest-environment-prisma", // Create vitest-environment-prisma in node_modules
   "test:install-prisma-environment": "npm link vitest-environment-prisma", // Install vitest-environment-prisma in node_modules
-  "test": "vitest run --dir src/use-cases", // Run all tests without watch
-  "test:watch": "vitest --dir src/use-cases", // Run all tests with watch
+  "test": "vitest run --dir src/useCases", // Run all tests without watch
+  "test:watch": "vitest --dir src/useCases", // Run all tests with watch
   "pretest:e2e": "run-s test:create-prisma-environment test:install-prisma-environment", // Run before test:e2e, run-s is to run scripts in sequence (npm install -D npm-run-all)
   "test:e2e": "vitest run --dir src/http", // Run all tests without watch in specific folder
   "test:e2e:watch": "vitest --dir src/http", // Run all tests with watch in specific folder
