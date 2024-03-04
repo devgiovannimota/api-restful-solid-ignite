@@ -12,22 +12,22 @@ import path from "node:path";
 
 export const app = fastify();
 
-// let pathOpenApi = path.join(__dirname, "docs", "openapi.json");
-// if (env.NODE_ENV === "production") {
-//   pathOpenApi = path.join(__dirname, "openapi.json");
-// }
+let pathOpenApi = path.join(__dirname, "docs", "openapi.json");
+if (env.NODE_ENV === "production") {
+  pathOpenApi = path.join(__dirname, "openapi.json");
+}
 
-// app.register(swagger, {
-//   mode: "static",
-//   specification: {
-//     path: pathOpenApi,
-//     baseDir: path.join(__dirname, "docs"),
-//   },
-// });
+app.register(swagger, {
+  mode: "static",
+  specification: {
+    path: pathOpenApi,
+    baseDir: path.join(__dirname, "docs"),
+  },
+});
 
-// app.register(swaggerUi, {
-//   routePrefix: "/docs",
-// });
+app.register(swaggerUi, {
+  routePrefix: "/docs",
+});
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
