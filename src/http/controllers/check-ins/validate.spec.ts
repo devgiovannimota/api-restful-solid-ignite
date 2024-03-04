@@ -3,7 +3,6 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import request from "supertest";
 import { createAndAuthenticateUser } from "@/utils/create-and-authenticate-user";
 import { prisma } from "@/lib/prisma";
-import { string } from "zod";
 
 describe("History (e2e)", () => {
   beforeAll(async () => {
@@ -14,7 +13,7 @@ describe("History (e2e)", () => {
   });
 
   it("Should be able to validade user check-in", async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateUser(app, true);
 
     const gym = await prisma.gym.create({
       data: {

@@ -18,7 +18,9 @@ export async function authenticate(
     const authenticateUseCase = makeAuthenticateUseCase();
     const { user } = await authenticateUseCase.execute({ email, password });
     const token = await reply.jwtSign(
-      {},
+      {
+        role: user.role,
+      },
       {
         sign: {
           sub: user.id,
@@ -27,7 +29,9 @@ export async function authenticate(
     );
 
     const refreshToken = await reply.jwtSign(
-      {},
+      {
+        role: user.role,
+      },
       {
         sign: {
           sub: user.id,
@@ -38,7 +42,7 @@ export async function authenticate(
 
     return reply
       .setCookie("refreshToken", refreshToken, {
-        path: "/",
+        path: "/token/refresh",
         secure: true,
         sameSite: true,
         httpOnly: true,
