@@ -104,15 +104,11 @@
                     "type": "string",
                     "format": "email",
                     "uniqueItems": true,
-                    "minLength": 5,
-                    "maxLength": 255,
                     "description": "The user email"
                   },
                   "password": {
                     "type": "string",
                     "format": "password",
-                    "minLength": 8,
-                    "maxLength": 128,
                     "description": "The user password, will be encrypted"
                   }
                 },
@@ -616,8 +612,6 @@
         "properties": {
           "name": {
             "type": "string",
-            "minLength": 1,
-            "maxLength": 255,
             "pattern": "/^[a-zA-ZÀ-ú0-9\\s]+$/g",
             "description": "The user name"
           },
@@ -625,16 +619,12 @@
             "type": "string",
             "format": "email",
             "uniqueItems": true,
-            "minLength": 5,
-            "maxLength": 255,
             "pattern": "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/g",
             "description": "The user email"
           },
           "password": {
             "type": "string",
             "format": "password",
-            "minLength": 8,
-            "maxLength": 128,
             "pattern": "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\|,.<>\\/?]).+$/g",
             "description": "The user password, will be encrypted"
           }
