@@ -1,13 +1,33 @@
 import fastify from "fastify";
-import { userRoutes } from "./http/controllers/users/routes";
-import { ZodError } from "zod";
-import { env } from "./env";
 import fastifyJwt from "@fastify/jwt";
 import fastifyCookie from "@fastify/cookie";
+import swagger from "@fastify/swagger";
+import swaggerUi from "@fastify/swagger-ui";
+import { userRoutes } from "./http/controllers/users/routes";
 import { gymsRoutes } from "./http/controllers/gyms/routes";
 import { checkInsRoutes } from "./http/controllers/check-ins/routes";
+import { ZodError } from "zod";
+import { env } from "./env";
+import path from "node:path";
 
 export const app = fastify();
+
+let pathOpenApi = path.join(__dirname, "docs", "openapi.json");
+if (env.NODE_ENV === "production") {
+  pathOpenApi = path.join(__dirname, "openapi.json");
+}
+
+app.register(swagger, {
+  mode: "static",
+  specification: {
+    path: pathOpenApi,
+    baseDir: path.join(__dirname, "docs"),
+  },
+});
+
+app.register(swaggerUi, {
+  routePrefix: "/docs",
+});
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
@@ -39,3 +59,17 @@ app.setErrorHandler((error, _, reply) => {
 
   return reply.status(500).send({ message: "Internal server error." });
 });
+
+// app.register(swagger, {
+//   mode: "static",
+//   specification: {
+//     path: pathOpenApi,
+//     baseDir: path.join(__dirname, "docs"),
+//   },
+// });
+
+// app.register(swaggerUi, {
+//   baseDir: path.join(__dirname, "docs"),
+//   routePrefix: "",
+//   staticCSP: true,
+// });
