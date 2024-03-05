@@ -56,7 +56,7 @@ npm init -y
 ```
 
 ```json
-// Create scripts in package.json
+
 "scripts": {
   "dev": "set NODE_ENV=dev&& tsx watch src/server.ts", // Create script to run server in development mode
   "build": "tsup src !src/**/*.spec.ts !src/**/test/**/* --out-dir build --minify --publicDir src/docs", // Create script to build server in production mode
