@@ -2,8 +2,8 @@
 	API Rest NodeJs com SOLID
 </h1>
 <p align="center">
- <a href="#-sobre-o-projeto">Sobre</a> •
- <a href="#-tecnologias">Tecnologias</a> •
+ <a href="#-sobre-o-projeto"> • Sobre</a> 
+ <a href="#-tecnologias"> • Tecnologias</a> 
 </p>
 
 ## 💻 Sobre o projeto

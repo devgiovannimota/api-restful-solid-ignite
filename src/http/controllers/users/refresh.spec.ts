@@ -4,10 +4,10 @@ import request from "supertest";
 
 describe("Refresh Token e2e", () => {
   beforeAll(async () => {
-    app.ready();
+    await app.ready();
   });
   afterAll(async () => {
-    app.close();
+    await app.close();
   });
 
   it("Should be able to refresh token", async () => {

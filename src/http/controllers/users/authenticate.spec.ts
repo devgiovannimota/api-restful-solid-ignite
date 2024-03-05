@@ -4,10 +4,10 @@ import request from "supertest";
 
 describe("Authenticate e2e", () => {
   beforeAll(async () => {
-    app.ready();
+    await app.ready();
   });
   afterAll(async () => {
-    app.close();
+    await app.close();
   });
 
   it("Should be able to authenticate user", async () => {
