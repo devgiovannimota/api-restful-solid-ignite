@@ -225,6 +225,19 @@ npm install dayjs # Install dayjs to manipulate date
 
 ---
 
+&nbsp;
+
+### **How to start the project**
+
+```bash
+git clone https://github.com/devgiovannimota/api-restful-solid-ignite.git # Clone the project in your local repository
+npm i # Install all dependencies
+docker compose up -d # Start the container image with compose
+npm run dev # Run the project
+```
+
+&nbsp;
+
 # App
 
 GymPass style app.
