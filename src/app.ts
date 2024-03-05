@@ -26,9 +26,7 @@ app.register(swagger, {
 });
 
 app.register(swaggerUi, {
-  baseDir: path.join(__dirname, "docs"),
-  routePrefix: "",
-  staticCSP: true,
+  routePrefix: "/docs",
 });
 
 app.register(fastifyJwt, {
@@ -61,3 +59,17 @@ app.setErrorHandler((error, _, reply) => {
 
   return reply.status(500).send({ message: "Internal server error." });
 });
+
+// app.register(swagger, {
+//   mode: "static",
+//   specification: {
+//     path: pathOpenApi,
+//     baseDir: path.join(__dirname, "docs"),
+//   },
+// });
+
+// app.register(swaggerUi, {
+//   baseDir: path.join(__dirname, "docs"),
+//   routePrefix: "",
+//   staticCSP: true,
+// });
