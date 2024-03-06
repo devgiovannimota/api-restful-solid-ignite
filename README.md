@@ -238,6 +238,15 @@ npm run dev # Run the project
 
 &nbsp;
 
+### Testando API com openAPI (Swagger)
+
+- Acesse api-restful-solid-ignite.onrender.com/docs
+- Create User in POST /users
+- Authenticate User in POST /authenticate
+  \_ Copy the token
+- Click on Authorize button
+- Paste the token in Value input
+
 # App
 
 GymPass style app.
